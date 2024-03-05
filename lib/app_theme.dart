@@ -12,6 +12,7 @@ class AppTheme{
   static ThemeData lightTheme=ThemeData(
     primaryColor: primaruColor,
     appBarTheme: AppBarTheme(
+      elevation: 0,
       backgroundColor: primaruColor,
       titleTextStyle: TextStyle(
         color: whitecolor,
