@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_timeline_calendar/timeline/flutter_timeline_calendar.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/firebase_utils.dart';
+import 'package:todo/tabs/tasks/edit_screen.dart';
 import 'package:todo/tabs/tasks/task_item.dart';
+import 'package:todo/tabs/tasks/tasks_provider.dart';
 
 class TasksTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+   final tasksProvider= Provider.of<TasksProvider>(context);
+
     return Column(
       children: [
       TimelineCalendar(
@@ -25,16 +31,26 @@ class TasksTab extends StatelessWidget {
       headerOptions: HeaderOptions(
           weekDayStringType: WeekDayStringTypes.SHORT,
           monthStringType: MonthStringTypes.FULL,
-          backgroundColor: Theme.of(context).hoverColor,
+          backgroundColor: Theme.of(context).primaryColor,
           headerTextColor: Colors.black),
-      onChangeDateTime: (datetime) {
-        print(datetime.getDate());
+      onChangeDateTime: (CalendarDateTime ) {
+       tasksProvider.changeDate(CalendarDateTime.toDateTime());
       },
+        dateTime: CalendarDateTime(
+            year: tasksProvider.selectedDate.year,
+            month: tasksProvider.selectedDate.month,
+            day: tasksProvider.selectedDate.day
+        ),
     ),
-        SizedBox(height: 8,),
+        const SizedBox(height: 8,),
         Expanded(
-          child: ListView.builder(itemBuilder: (context, index) => TaskItem(),
-            itemCount: 10,
+          child: ListView.builder(itemBuilder: (_, index) =>
+              InkWell(
+                onTap: (){
+                  Navigator.of(context).pushNamed(EditTaskScreen.routename);
+                },
+                  child: TaskItem(tasksProvider.tasks[index])),
+            itemCount: tasksProvider.tasks.length,
           ),
         )
       ],

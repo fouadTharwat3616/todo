@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
+import 'package:todo/firebase_utils.dart';
+import 'package:todo/models/task_model.dart';
 import 'package:todo/tabs/tasks/custom_text_form_field.dart';
 import 'package:todo/tabs/tasks/default_elevated_button.dart';
+import 'package:todo/tabs/tasks/tasks_provider.dart';
 
 class AddtaskBottimSheet extends StatefulWidget {
   @override
@@ -41,18 +46,21 @@ class _AddtaskBottimSheetState extends State<AddtaskBottimSheet> {
             onTap: () async{
               final dateTime = await showDatePicker(
                   context: context,
-                  initialDate: DateTime.now(),
+                  initialDate: selectedDate,
                   firstDate: DateTime.now(),
                   lastDate: DateTime.now().add(const Duration(days: 365)),
+                //دي بتلغي icon الاختيار باليد
                 initialEntryMode: DatePickerEntryMode.calendarOnly
               );
               if (dateTime != null)
                 {
                   selectedDate=dateTime;
                 }
+
+              setState(() {});
             },
             child: Text(
-            dateFormat.format(DateTime.now()),
+            dateFormat.format(selectedDate),
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ),
@@ -64,6 +72,36 @@ class _AddtaskBottimSheetState extends State<AddtaskBottimSheet> {
   }
 
   void addTask(){
+    FirebaseUtils.addTaskToFirestore(
+        TaskModel(
+            title: titleController.text,
+            description: descriptionController.text,
+            dateTime: selectedDate,
+        ),//بت catch ال error أللي ممكن ال future  يضربه
+    ).timeout(
+        Duration(milliseconds: 500),
+        onTimeout: (){
+          Provider.of<TasksProvider>(context,listen: false).getTasks();
+          Navigator.of(context).pop();
+          Fluttertoast.showToast(
+              msg: "Task Added Successfully",
+              toastLength: Toast.LENGTH_SHORT,
+              // gravity: ToastGravity.CENTER,
+              // timeInSecForIosWeb: 1,
+              // backgroundColor: Colors.red,
+              // textColor: Colors.white,
+              // fontSize: 16.0
+          );
+    },
+    ).catchError( (_){
+      Navigator.of(context).pop();
+      Fluttertoast.showToast(
+        msg: "Something Went Wrong!",
+        toastLength: Toast.LENGTH_SHORT,
+      );
+    }  );
+
+
 
   }
 }
