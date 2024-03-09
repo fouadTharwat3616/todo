@@ -5,7 +5,7 @@ import 'package:todo/tabs/tasks/add_task_bottom-sheet.dart';
 import 'package:todo/tabs/tasks/tasks_tab.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class HomeScreen extends StatefulWidget {
-  static const String routeName='/';
+  static const String routeName='/HomeScreen';
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

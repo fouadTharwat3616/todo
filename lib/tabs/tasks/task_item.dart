@@ -5,6 +5,7 @@ import 'package:todo/app_theme.dart';
 import 'package:todo/firebase_utils.dart';
 import 'package:todo/models/task_model.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:todo/tabs/settings/settings_provider.dart';
 import 'package:todo/tabs/tasks/tasks_provider.dart';
 class TaskItem extends StatelessWidget {
   final TaskModel task;
@@ -54,7 +55,7 @@ class TaskItem extends StatelessWidget {
           child:
           Container(
             decoration: BoxDecoration(
-              color: AppTheme.whitecolor,
+              color: Provider.of<settingsProvider>(context).backGround_bottom_sheet_settings_container,
               borderRadius: BorderRadius.circular(15),
 
             ),
@@ -75,12 +76,12 @@ class TaskItem extends StatelessWidget {
                     Text(task.title, style: Theme
                         .of(context)
                         .textTheme
-                        .bodyMedium,),
+                        .bodyMedium?.copyWith(color: AppTheme.primaruColor),),
                     SizedBox(height: 4,),
                     Text(task.description, style: Theme
                         .of(context)
                         .textTheme
-                        .bodySmall,),
+                        .bodySmall?.copyWith(color: AppTheme.primaruColor,),)
                   ],
                 ),
                 Spacer(),

@@ -5,6 +5,8 @@ import 'package:todo/app_theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:todo/auth/login_screen.dart';
+import 'package:todo/auth/register_screen.dart';
 import 'package:todo/homescreen.dart';
 import 'package:todo/tabs/settings/settings_provider.dart';
 import 'package:todo/tabs/tasks/edit_screen.dart';
@@ -50,8 +52,10 @@ class ToDo extends StatelessWidget {
       routes: {
         HomeScreen.routeName:(_) => HomeScreen(),
         EditTaskScreen.routename: (context) => EditTaskScreen(),
-
+        LoginScreen.routeName:(context) => LoginScreen(),
+        RegisterScreen.routeName:(context) => RegisterScreen(),
       },
+      initialRoute: LoginScreen.routeName,
       //initialRoute: HomeScreen.routeName,
 
     );

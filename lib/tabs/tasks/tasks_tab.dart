@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_timeline_calendar/timeline/flutter_timeline_calendar.dart';
 import 'package:provider/provider.dart';
+import 'package:todo/app_theme.dart';
 import 'package:todo/firebase_utils.dart';
+import 'package:todo/tabs/settings/settings_provider.dart';
 import 'package:todo/tabs/tasks/edit_screen.dart';
 import 'package:todo/tabs/tasks/task_item.dart';
 import 'package:todo/tabs/tasks/tasks_provider.dart';
@@ -22,6 +24,7 @@ class TasksTab extends StatelessWidget {
         headerMonthElevation: 10,
         headerMonthShadowColor: Colors.black26,
         headerMonthBackColor: Colors.transparent,
+        bottomSheetBackColor: Provider.of<settingsProvider>(context).backGround_bottom_sheet_settings_container
       ),
       dayOptions: DayOptions(
           compactMode: true,
@@ -31,8 +34,9 @@ class TasksTab extends StatelessWidget {
       headerOptions: HeaderOptions(
           weekDayStringType: WeekDayStringTypes.SHORT,
           monthStringType: MonthStringTypes.FULL,
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: AppTheme.primaruColor,
           headerTextColor: Colors.black),
+
       onChangeDateTime: (CalendarDateTime ) {
        tasksProvider.changeDate(CalendarDateTime.toDateTime());
       },
