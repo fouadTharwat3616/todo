@@ -10,7 +10,8 @@ class CustomTextFormField extends StatefulWidget {
         this.maxLines=1,
         required this.controller,
         this.isPassword=false,
-        this .validator
+        this .validator,
+        this.onChanged
       });
   final String? hintText;
   final String? labelText;
@@ -18,6 +19,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool isPassword;
   final TextEditingController controller;
   final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -28,10 +30,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: widget.onChanged,
       controller: widget.controller,
       decoration: InputDecoration(
         hintText: widget.hintText,
-        hintStyle: TextStyle(color: Provider.of<settingsProvider>(context).HintText),
+        hintStyle: TextStyle(color: Provider.of<settingsProvider>(context).HintText,fontSize: 18),
         label:widget.labelText != null ?Text( widget.labelText!,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
           fontSize: 20,
@@ -43,7 +46,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           onPressed: (){
             isObsecure = !isObsecure;
             setState(() {
-
             });
           },
           icon:isObsecure ?const Icon(Icons.visibility_off_outlined) :const Icon(Icons.visibility_outlined) ,

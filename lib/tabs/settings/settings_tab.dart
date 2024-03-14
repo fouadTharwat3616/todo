@@ -23,7 +23,8 @@ class _SettingsTabState extends State<SettingsTab> {
             'Language',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 fontSize: 14,
-              fontWeight: FontWeight.bold
+              fontWeight: FontWeight.bold,
+                color: AppTheme.whitecolor
             ),
           ),
         ),
@@ -71,7 +72,8 @@ class _SettingsTabState extends State<SettingsTab> {
             'Mode',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 fontSize: 14,
-                fontWeight: FontWeight.bold
+                fontWeight: FontWeight.bold,
+              color: AppTheme.whitecolor
             ),
           ),
         ),

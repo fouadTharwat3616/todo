@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
+import 'package:todo/auth/user_provider.dart';
 import 'package:todo/firebase_utils.dart';
 import 'package:todo/models/task_model.dart';
 import 'package:todo/tabs/settings/settings_provider.dart';
@@ -107,15 +108,16 @@ class _AddtaskBottimSheetState extends State<AddtaskBottimSheet> {
   void addTask(){
    if(formKey.currentState?.validate()==true) {
       FirebaseUtils.addTaskToFirestore(
+        Provider.of<UserProvider>(context,listen: false).currentUser!.id,
         TaskModel(
           title: titleController.text,
           description: descriptionController.text,
           dateTime: selectedDate,
         ), //بت catch ال error أللي ممكن ال future  يضربه
-      ).timeout(
-        Duration(milliseconds: 500),
-        onTimeout: () {
-          Provider.of<TasksProvider>(context, listen: false).getTasks();
+      ).then(
+            (_) {
+          Provider.of<TasksProvider>(context, listen: false)
+              .getTasks( Provider.of<UserProvider>(context,listen: false).currentUser!.id);
           Navigator.of(context).pop();
           Fluttertoast.showToast(
             msg: "Task Added Successfully",
@@ -134,6 +136,6 @@ class _AddtaskBottimSheetState extends State<AddtaskBottimSheet> {
           toastLength: Toast.LENGTH_SHORT,
         );
       });
-    }
+     }
   }
 }

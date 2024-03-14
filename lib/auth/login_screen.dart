@@ -1,6 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
 import 'package:todo/auth/register_screen.dart';
+import 'package:todo/auth/user_provider.dart';
+import 'package:todo/firebase_utils.dart';
 import 'package:todo/homescreen.dart';
 import 'package:todo/tabs/tasks/custom_text_form_field.dart';
 import 'package:todo/tabs/tasks/default_elevated_button.dart';
@@ -121,7 +126,32 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   void login(){
     if (formKey.currentState?.validate() == true) {
-      Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+      FirebaseUtils.Login(
+          email: emailController.text,
+          password: passwordController.text
+      ).then( (user){
+                Provider.of<UserProvider>(context,listen: false).UpdateUser(user);
+                Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+              })
+          .catchError((error){
+           if(error is FirebaseAuthException && error.message != null)
+             {
+               Fluttertoast.showToast(
+                   msg: error.message!,
+                   toastLength: Toast.LENGTH_SHORT
+               );
+             }
+           else
+             {
+               Fluttertoast.showToast(
+                   msg: 'something went wrong',
+                   toastLength: Toast.LENGTH_SHORT,
+               );
+             }
+
+
+      });
+     // Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
     }
   }
 }
