@@ -1,15 +1,28 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_timeline_calendar/timeline/flutter_timeline_calendar.dart';
 import 'package:provider/provider.dart';
+import 'package:todo/app_theme.dart';
+import 'package:todo/auth/user_provider.dart';
 import 'package:todo/firebase_utils.dart';
+import 'package:todo/tabs/settings/settings_provider.dart';
 import 'package:todo/tabs/tasks/edit_screen.dart';
 import 'package:todo/tabs/tasks/task_item.dart';
 import 'package:todo/tabs/tasks/tasks_provider.dart';
 
 class TasksTab extends StatelessWidget {
+  bool shouldGetTasks=true;
+  late String userId;
+  late TasksProvider tasksProvider;
   @override
   Widget build(BuildContext context) {
-   final tasksProvider= Provider.of<TasksProvider>(context);
+    if(shouldGetTasks==true)
+    {
+       userId = Provider.of<UserProvider>(context).currentUser!.id;
+       tasksProvider = Provider.of<TasksProvider>(context)
+        ..getTasks(userId);
+      shouldGetTasks=false;
+    }
 
     return Column(
       children: [
@@ -22,6 +35,7 @@ class TasksTab extends StatelessWidget {
         headerMonthElevation: 10,
         headerMonthShadowColor: Colors.black26,
         headerMonthBackColor: Colors.transparent,
+        bottomSheetBackColor: Provider.of<settingsProvider>(context).backGround_bottom_sheet_settings_container
       ),
       dayOptions: DayOptions(
           compactMode: true,
@@ -31,10 +45,11 @@ class TasksTab extends StatelessWidget {
       headerOptions: HeaderOptions(
           weekDayStringType: WeekDayStringTypes.SHORT,
           monthStringType: MonthStringTypes.FULL,
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: AppTheme.primaruColor,
           headerTextColor: Colors.black),
+
       onChangeDateTime: (CalendarDateTime ) {
-       tasksProvider.changeDate(CalendarDateTime.toDateTime());
+       tasksProvider.changeDate(userId,CalendarDateTime.toDateTime());
       },
         dateTime: CalendarDateTime(
             year: tasksProvider.selectedDate.year,
@@ -45,11 +60,7 @@ class TasksTab extends StatelessWidget {
         const SizedBox(height: 8,),
         Expanded(
           child: ListView.builder(itemBuilder: (_, index) =>
-              InkWell(
-                onTap: (){
-                  Navigator.of(context).pushNamed(EditTaskScreen.routename);
-                },
-                  child: TaskItem(tasksProvider.tasks[index])),
+              TaskItem(tasksProvider.tasks[index]),
             itemCount: tasksProvider.tasks.length,
           ),
         )
