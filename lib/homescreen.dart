@@ -30,10 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
       AppLocalizations.of(context)!.settings
     ];
     return Scaffold(
+
       appBar: AppBar(
         title: //Text(selected_index ==0 ? 'To Do List' : 'Settings'),
         Padding(
-          padding: EdgeInsetsDirectional.only(start: 20),
+          padding: const EdgeInsetsDirectional.only(start: 20),
             child: Text(labels[selected_index])
         ),
         actions: [
@@ -53,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: tabs[selected_index],
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
+        shape:  const CircularNotchedRectangle(),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         notchMargin: 10,
         child: BottomNavigationBar(
@@ -64,17 +65,26 @@ class _HomeScreenState extends State<HomeScreen> {
 
             })
           },
-          items: [
-            BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/tasks_icon.png')),label: 'tasks'),
-            BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/settings_icon.png')),label: 'settings')
+          items: const [
+            BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage('assets/images/tasks_icon.png')
+                ),
+                label: 'tasks'
+            ),
+            BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage('assets/images/settings_icon.png')
+                ),
+                label: 'settings'
+            ),
           ],
+          type: BottomNavigationBarType.fixed,
         ),
       ),
       floatingActionButton: FloatingActionButton(
          onPressed: (){
            showModalBottomSheet(context: context,
-             shape: RoundedRectangleBorder(
-               borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+             shape: const RoundedRectangleBorder(
+               borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
              ),
                builder: (context) =>AddtaskBottimSheet(),
            );
@@ -82,7 +92,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Icon(Icons.add,color: AppTheme.whitecolor,size: 32,),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
     );
   }
 }

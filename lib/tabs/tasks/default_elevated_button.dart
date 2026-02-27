@@ -9,12 +9,12 @@ class DefaultElevatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         onPressed: onpressed,
-        child: child,
       style: ElevatedButton.styleFrom(
         backgroundColor: Theme.of(context).primaryColor,
         fixedSize: Size(MediaQuery.of(context).size.width, 50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6))
       ),
+        child: child,
     );
   }
 }

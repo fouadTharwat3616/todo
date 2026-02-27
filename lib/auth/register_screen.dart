@@ -25,6 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppTheme.bk_color_light,
       resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -45,14 +46,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
             )
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*.03),
           child: Form(
             key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 35,),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*.07,
+                ),
                 CustomTextFormField(
                     labelText: 'First Name',
                     controller: NameController,
@@ -64,8 +67,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(
-                  height: 16,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*.03,
                 ),
                 CustomTextFormField(
                     labelText: 'Email',
@@ -94,8 +97,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*.04,
                 ),
                 DefaultElevatedButton(
                   onpressed: registre,
@@ -115,8 +118,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*.02,
                 ),
                 TextButton(
                   onPressed: (){

@@ -43,9 +43,9 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
       resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: //Text(selected_index ==0 ? 'To Do List' : 'Settings'),
-          Padding(
+          const Padding(
               padding: EdgeInsetsDirectional.only(start: 20),
-              child: Text(AppLocalizations.of(context)!.todolist)
+              child: Text('Task Edit Screen')
           ),
         ),
         body: Stack(
@@ -53,7 +53,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
             Container(
               color: AppTheme.primaruColor,
               width: double.infinity,
-              height: 100,
+              height: MediaQuery.of(context).size.height*.11,
             ),
             Container(
               decoration: BoxDecoration(
@@ -93,7 +93,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                         },
                         //hintText: 'Enter task Title'
                     ),
-                    SizedBox(height: 16,),
+                    SizedBox(height: MediaQuery.of(context).size.height*.01,),
                     CustomTextFormField(
                       onChanged: (value){
                         widget.taskModel.description=value;
@@ -105,14 +105,14 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                        // hintText: 'Enter task Description',
                         maxLines: 5
                     ),
-                    SizedBox(height: 16,),
+                    SizedBox(height: MediaQuery.of(context).size.height*.001,),
                     Align(
                         alignment: AlignmentDirectional.centerStart,
                         child: Text('Selected Date', style: Theme
                             .of(context)
                             .textTheme
                             .bodyLarge,)),
-                    SizedBox(height: 20,),
+                    SizedBox(height: MediaQuery.of(context).size.height*.02,),
                     InkWell(
                       onTap: () async {
                         final dateTime = await showDatePicker(
@@ -137,7 +137,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                             .bodySmall,
                       ),
                     ),
-                   SizedBox(height: 20,),
+                    SizedBox(height: MediaQuery.of(context).size.height*.03,),
                     DefaultElevatedButton(
                       onpressed: EditTask,
                       child: Text(
@@ -183,7 +183,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
         },
       ).catchError((e) {
         Fluttertoast.showToast(
-          msg: '$e',
+          msg: 'SomeThing went Wrong',
           toastLength: Toast.LENGTH_SHORT,
         );
       });
