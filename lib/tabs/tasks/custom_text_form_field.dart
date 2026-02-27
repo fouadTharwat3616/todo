@@ -39,9 +39,10 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
           fontSize: 20,
             fontWeight: FontWeight.w400,
+
         ),): null,
         //  to hide counter that appear from using max length
-        counter: const SizedBox(),
+       // counter: const SizedBox(),
         suffixIcon:widget.isPassword ? IconButton(
           onPressed: (){
             isObsecure = !isObsecure;

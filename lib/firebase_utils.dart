@@ -21,6 +21,7 @@ class FirebaseUtils{
     final tasksCollection = getTasksCollection(userId);
     //بعد كده بمسك من ال collection ده document بتاخد path اللي هو id
     final doc = tasksCollection.doc();
+    //مهم
     task.id=doc.id;
     return doc.set(task);
   }
@@ -37,6 +38,8 @@ class FirebaseUtils{
   // }
   static Future<void> UpdateTask(String userId,TaskModel task)async{
     await getTasksCollection(userId).doc(task.id).update(task.toJson());
+    //final tasksCollection=getTasksCollection(userId);
+    //return tasksCollection.doc(task.id).update(task.toJson());
 
   }
 
@@ -47,11 +50,7 @@ class FirebaseUtils{
    return querySnapshot.docs.map((doc) => doc.data()).toList();
   }
 
-  static Future<UserModel> Register({
-    required String name,
-    required String email,
-    required String password,
-  })async{
+  static Future<UserModel> Register({required String name, required String email, required String password,})async{
   final credentials =await FirebaseAuth.instance.createUserWithEmailAndPassword(
        email: email,
        password: password

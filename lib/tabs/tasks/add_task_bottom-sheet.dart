@@ -17,8 +17,8 @@ class AddtaskBottimSheet extends StatefulWidget {
 }
 
 class _AddtaskBottimSheetState extends State<AddtaskBottimSheet> {
-  TextEditingController titleController=TextEditingController();
-  TextEditingController descriptionController=TextEditingController();
+  var titleController=TextEditingController();
+  var descriptionController=TextEditingController();
   final formKey=GlobalKey<FormState>();
   var selectedDate =DateTime.now();
   @override
@@ -30,7 +30,7 @@ class _AddtaskBottimSheetState extends State<AddtaskBottimSheet> {
         borderRadius: BorderRadius.circular(10),
         color: Provider.of<settingsProvider>(context).backGround_bottom_sheet_settings_container
       ),
-      padding: EdgeInsets.all(8),
+      padding:  const EdgeInsets.all(20),
       //width: double.infinity,
       child: Form(
         key: formKey,
@@ -49,7 +49,7 @@ class _AddtaskBottimSheetState extends State<AddtaskBottimSheet> {
               },
 
             ),
-            SizedBox(height: 16,),
+            SizedBox(height: MediaQuery.of(context).size.height*.00001,),
             CustomTextFormField(
               controller: descriptionController,
                 hintText: 'Enter task Description',
@@ -62,7 +62,7 @@ class _AddtaskBottimSheetState extends State<AddtaskBottimSheet> {
                 return null;
               },
             ),
-            SizedBox(height: 16,),
+            SizedBox(height: MediaQuery.of(context).size.height*.0001,),
             Align(
               alignment: AlignmentDirectional.centerStart,
                 child: Text('Selected Date',style: Theme.of(context).textTheme.bodyLarge,)),
@@ -85,20 +85,18 @@ class _AddtaskBottimSheetState extends State<AddtaskBottimSheet> {
               },
               child: Text(
               dateFormat.format(selectedDate),
-                style: Theme.of(context).textTheme.bodySmall,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Provider.of<settingsProvider>(context).DateColor
+                ),
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: MediaQuery.of(context).size.height*.02,),
             DefaultElevatedButton(
+                onpressed: addTask,
                 child:
                 Text(
                   'Add',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.whitecolor),),
-                // style: ElevatedButton.styleFrom(
-                //   backgroundColor: Theme.of(context).primaryColor,
-                //   fixedSize: Size(MediaQuery.of(context).size.width, 52),
-                // ),,
-                onpressed: addTask),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.whitecolor),)),
           ],
         ),
       ),

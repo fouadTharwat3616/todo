@@ -24,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppTheme.bk_color_light,
       resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -44,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
           )
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*.03),
           child: Form(
             key: formKey,
             child: Column(
@@ -54,8 +55,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text(
                   'Welcome Back!',style: Theme.of(context).textTheme.titleMedium,
                 ),
-                const SizedBox(
-                  height: 16,
+                 SizedBox(
+                  height: MediaQuery.of(context).size.height*.03,
                 ),
                 CustomTextFormField(
                    labelText: 'Email',
@@ -69,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                    },
                 ),
                 CustomTextFormField(
+                  isPassword: true,
                   labelText: 'Password',
                     controller: passwordController,
                   validator: (value){
@@ -82,10 +84,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                     return null;
                   },
-                  isPassword: true,
+
                 ),
-                const SizedBox(
-                  height: 20,
+                 SizedBox(
+                  height: MediaQuery.of(context).size.height*.04,
                 ),
                 DefaultElevatedButton(
                     onpressed: login,
@@ -105,8 +107,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
+                 SizedBox(
+                  height: MediaQuery.of(context).size.height*.02,
                 ),
                 TextButton(
                     onPressed: (){

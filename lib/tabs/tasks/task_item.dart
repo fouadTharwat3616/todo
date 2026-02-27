@@ -24,7 +24,7 @@ class _TaskItemState extends State<TaskItem> {
   Widget build(BuildContext context) {
     return
       Container(
-        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Slidable(
           key: const ValueKey(0),
           startActionPane: ActionPane(
@@ -93,13 +93,13 @@ class _TaskItemState extends State<TaskItem> {
               children: [
                 Container(
                   width: 4,
-                  height: 50,
+                  height: 62,
                   color:widget.task.isDone==false ?
                        Theme
                       .of(context)
                       .primaryColor:
                        AppTheme.greencolor,
-                  margin: EdgeInsetsDirectional.only(end: 8),
+                  margin: const EdgeInsetsDirectional.only(end: 8),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,9 +119,15 @@ class _TaskItemState extends State<TaskItem> {
                   ],
 
                 ),
-                Spacer(),
+                const Spacer(),
                 widget.task.isDone==true ?
-                    Container(
+                    InkWell(
+                      onTap: (){
+                        widget.task.isDone=false;
+                        if(widget.task.isDone)return;
+                        FirebaseUtils.UpdateTask(Provider.of<UserProvider>(context,listen: false).currentUser!.id, widget.task);
+                        setState(() {});
+                      },
                       child: Text(
                         'Done!',
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(

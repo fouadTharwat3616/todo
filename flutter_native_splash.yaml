@@ -48,7 +48,7 @@ flutter_native_splash:
   # Following are specific parameters for Android 12+.
   android_12:
     color: "#DFECDB"
-    image: assets/images/logo.png
+    image: "assets/images/logo.png"
 
 
 
@@ -61,7 +61,7 @@ flutter_native_splash:
   # The image_dark, color_dark, icon_background_color_dark, and branding_dark set values that
   # apply when the device is in dark mode. If they are not specified, the app will use the
   # parameters from above.
-  image_dark: assets/images/logo.png
+  image_dark: "assets/images/logo.png"
   color_dark: "#060E1E"
   #icon_background_color_dark: "#eeeeee"
 

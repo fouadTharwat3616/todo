@@ -22,7 +22,7 @@ class _SettingsTabState extends State<SettingsTab> {
           child: Text(
             'Language',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontSize: 14,
+                fontSize: 18,
               fontWeight: FontWeight.bold,
                 color: AppTheme.whitecolor
             ),
